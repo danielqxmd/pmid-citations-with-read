@@ -1,5 +1,5 @@
 === PMID Citation with Read ===
-Contributors: qxmd
+Contributors: QxMD
 Tags: pmid, PubMed, read, qxmd, cite, citation, science, academia, endnotes, footnotes, mendeley, research, bibliography, references
 Stable tag: trunk
 Requires at least: 3.1.2
@@ -18,9 +18,10 @@ This plugin allows you to add PubMed citations to the body of any page/post as w
 
 == Screenshots ==
 
-1. The references block at the bottom of a blog post.
-2. The PMID Citation Plus entry field above the update button.
-3. A PubMed abstract with the location of the PMID indicated.
+1. The references listed at the bottom of a blog post.
+2. PMID Citations with Read entry field above the update button.
+3. Finding a PMID on PubMed.com
+4. Finding a PMID on ReadbyQxMD.com
 
 == Upgrade Notice ==
 
@@ -55,6 +56,11 @@ When a reference is clicked or tapped, the Read by QxMD service recognizes the u
 The plugin uses the css class 'pmidcitationplus' in the div that surrounds the references block. If you would like, you may use this class to then style it by adding code to your *style.css* file of your theme folder.
 
 For more information, please visit http://www.qxmd.com/pmid-citations-with-read
+
+= Who influenced the development of this plugin? =
+
+PMID Citations with Read is adapted from PMID Citations Plus by Dan Patrick
+http://mdpatrick.com/
 
 = Support =
 
