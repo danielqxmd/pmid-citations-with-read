@@ -12,6 +12,8 @@ add_action('wp_enqueue_scripts', 'enqueue_pmid_scripts');
 add_action('admin_init', 'pmidplus_add_meta');
 add_action('save_post', 'pmidplus_save_postdata'); // Execute save function on save.
 add_filter('the_content', 'pmidplus_append_bibliography', 9);
+$plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$plugin", 'pmid_settings_link' );
 add_shortcode('PMID', 'shortcode_cite');
 
 $pmidplus_options = get_option('pmidplus_options', false);
@@ -20,9 +22,17 @@ if (!$pmidplus_options or (count($pmidplus_options) < 4)) {
     $pmidplus_options = array(
         'abstract_tooltip' => false,
         'abstract_tooltip_length' => 450,
-        'open_with_read' => false,
-        'targetblank' => true
+        'open_with_read' => true,
+        'targetblank' => true,
+        "replace_with_button" => false,
+        "numbered_references_list" => false
     );
+}
+
+function pmid_settings_link($links) { 
+  $settings_link = '<a href="/wp-admin/admin.php?page=pmid-citations-with-read/includes/pmidplus-settings.php">Settings</a>'; 
+  array_unshift($links, $settings_link); 
+  return $links; 
 }
 
 function shortcode_cite($attrs, $contents = null) {
@@ -147,14 +157,35 @@ function build_references_html($processedarray)
         }
     ?>
 <div class="pmidcitationplus<?=$cssclass;?>">
-    <ul>
+    <div>
         <?php
+        $i = 0;
         foreach ($processedarray as $singlecitation) {
-            echo "<li id=\"cit" . $singlecitation['pmid'] . "\">";
+            $i++;
+            // echo "<li id=\"cit" . $singlecitation['pmid'] . "\">";
+            if($pmidplus_options["replace_with_button"]) {
+                echo '<div class="open_with_read">'.
+                '&nbsp;<a href="http://qxmd.com/r/'. clean_pmid($singlecitation['pmid'])."\" class=\"open_with_read\" {$targetblank}>".
+                    '<img src="/wp-content/plugins/pmid-citations-with-read/images/Open-In-Read-2.png">'.
+                '</a></div>';
+            }
+            echo '<div><div class="quote_text">';
+            if($pmidplus_options["numbered_references_list"] && 
+                (!isset($post->during_shortcode) || $post->during_shortcode != 1)
+               ){
+                echo '<div class="number">'.$i.'.</div>';
+            }
             $targetblank = $pmidplus_options["targetblank"] ? ' target="_blank"' : '';
-            $openwithread = $pmidplus_options["open_with_read"] ? " <a href=\"http://www.ncbi.nlm.nih.gov/pubmed/{$singlecitation['pmid']}\"{$targetblank}>[PubMed] </a><a href=\"http://qxmd.com/r/{$singlecitation['pmid']}\"{$targetblank}>[Read by QxMD]</a>" : '';
+            $openwithread = !$pmidplus_options["replace_with_button"] ? 
+                " <a href=\"http://www.ncbi.nlm.nih.gov/pubmed/".clean_pmid($singlecitation['pmid'])."\"{$targetblank}>[PubMed] </a><a href=\"http://qxmd.com/r/".clean_pmid($singlecitation['pmid'])."\"{$targetblank}>[Read by QxMD]</a>" 
+                    : 
+                    '';
             echo "{$singlecitation['authors']} <a href=\"http://qxmd.com/r/".
-                clean_pmid($singlecitation['pmid'])."\"{$targetblank}>{$singlecitation['title']}</a> {$singlecitation['journal']} {$singlecitation['issue']} " . 'PMID: ' . '<a href="http://qxmd.com/r/'. clean_pmid($singlecitation['pmid']). "\"{$targetblank}>" . clean_pmid($singlecitation['pmid']) . '</a>.'.$openwithread;
+                clean_pmid($singlecitation['pmid']).
+                "\"{$targetblank}>{$singlecitation['title']}</a> {$singlecitation['journal']} {$singlecitation['issue']} " . 
+                'PMID: ' . '<a href="http://qxmd.com/r/'. clean_pmid($singlecitation['pmid']). "\"{$targetblank}>" . 
+                clean_pmid($singlecitation['pmid']) . '</a>.'.
+                $openwithread;
             if ((strlen($singlecitation['abstract']) > 0) and $pmidplus_options['abstract_tooltip']) {
                 echo '
                     <span style="display:none;" class="abstr">
@@ -172,9 +203,11 @@ function build_references_html($processedarray)
                     });
                     </script>';
             }
-            echo "</li>";
+            echo '</div>';
+
+            echo "</div>";
         }
-        ?></ul>
+        ?></div>
 </div>
 <?php
     return ob_get_clean();
@@ -332,7 +365,7 @@ function pmidplus_options_sanitization($input)
         $safe['abstract_tooltip_length'] = intval($matches[0]);
     }
 
-    foreach(array('abstract_tooltip', 'open_with_read', 'targetblank') as $value) {
+    foreach(array('abstract_tooltip', 'open_with_read', 'targetblank', 'replace_with_button', 'numbered_references_list') as $value) {
         if ($input[$value] == "true") {
             $safe[$value] = true;
         } else {
