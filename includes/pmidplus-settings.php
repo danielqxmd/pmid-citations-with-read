@@ -42,6 +42,38 @@
                            value="false" <?php echo !$pmidplus_options['targetblank'] ? 'checked="true"' : ''; ?>"/>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <label for="replace_with_button">Replace [PubMed] [Read by QxMD] with "Open in Read" button.</label>
+                </td>
+                <td>
+                    <label for="replace_with_button_on">on</label>
+                    <input id="replace_with_button_on" name="pmidplus_options[replace_with_button]" type="radio"
+                           value="true" <?php echo $pmidplus_options['replace_with_button'] ? 'checked="true"' : ''; ?> />
+                    <label for="replace_with_button_off">off</label>
+                    <input id="replace_with_button_off" name="pmidplus_options[replace_with_button]" type="radio"
+                           value="false" <?php echo !$pmidplus_options['replace_with_button'] ? 'checked="true"' : ''; ?> />
+                </td>
+                <td>
+                    <img src="/wp-content/plugins/pmid-citations-with-read/images/Open-In-Read-2.png" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="numbered_references_list">Numbered References</label>
+                </td>
+                <td>
+                    <label for="numbered_references_list_on">on</label>
+                    <input id="numbered_references_list_on" name="pmidplus_options[numbered_references_list]" type="radio"
+                           value="true" <?php echo $pmidplus_options['numbered_references_list'] ? 'checked="true"' : ''; ?> />
+                    <label for="numbered_references_list_off">off</label>
+                    <input id="numbered_references_list_off" name="pmidplus_options[numbered_references_list]" type="radio"
+                           value="false" <?php echo !$pmidplus_options['numbered_references_list'] ? 'checked="true"' : ''; ?> />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>            
         </table>
         <p class="submit"><input type="Submit" name="submit" class="button" value="<?php esc_attr_e('Save Changes'); ?>"/></p>
     </form>

@@ -94,6 +94,39 @@
     padding-top: 10px;
 }
 
-.pmidcitationplus.shortcode ul {
-    list-style: none outside none;
+div.pmidcitationplus > div {
+    padding-left: 0px;
 }
+
+div.pmidcitationplus.shortcode > div {
+    padding-left: 0px;
+}
+
+div.pmidcitationplus > div > div{
+    margin-bottom:20px;
+    height: auto;
+    overflow: hidden;
+}
+
+div.pmidcitationplus div.number {
+    overflow: hidden; 
+    padding-right: 7px;
+    float: left; 
+    height: auto;
+}
+
+div.pmidcitationplus.shortcode > div > div {
+    margin-bottom: 0px;
+}
+
+.pmidcitationplus div.qute_text {
+    width: auto;
+    float: none;
+    overflow: hidden;
+}
+
+.pmidcitationplus div.open_with_read {
+    width: 116px;
+    float: right;
+}
+
