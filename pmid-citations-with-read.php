@@ -2,7 +2,7 @@
 /*
 Plugin Name: PMID Citations with Read
 Plugin URI: http://qxmd.com/pmid-citations-with-Read
-Version: 1.0
+Version: 1.0.1
 Author: QxMD
 Author URI: http://QxMD.com/
 Description: This plugin makes it simple to include biomedical citations in the body of your post/page, as a reference section at the bottom of your page/page and provide full text access on web/mobile via the Read by QxMD service.
