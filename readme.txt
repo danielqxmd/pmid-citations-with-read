@@ -1,7 +1,7 @@
 === PMID Citations with Read ===
 Contributors: QxMD
 Tags: pmid, PubMed, read, qxmd, cite, citation, science, academia, endnotes, footnotes, mendeley, research, bibliography, references
-Stable tag: trunk
+Stable tag: 1.01
 Requires at least: 3.1.2
 Tested up to: 3.7
 
