@@ -3,7 +3,7 @@ Contributors: QxMD
 Tags: pmid, PubMed, read, qxmd, cite, citation, science, academia, endnotes, footnotes, mendeley, research, bibliography, references
 Stable tag: 1.01
 Requires at least: 3.1.2
-Tested up to: 3.7
+Tested up to: 4.01
 
 This plugin allows you to add PubMed citations to wordpress sites with deep integration to the Read by QxMD service.
 
